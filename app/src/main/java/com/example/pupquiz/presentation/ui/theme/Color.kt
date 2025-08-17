@@ -1,4 +1,4 @@
-package com.example.pupquiz.ui.theme
+package com.example.pupquiz.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
