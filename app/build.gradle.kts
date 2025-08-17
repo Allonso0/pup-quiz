@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.coil)
     implementation(libs.coil.compose)
