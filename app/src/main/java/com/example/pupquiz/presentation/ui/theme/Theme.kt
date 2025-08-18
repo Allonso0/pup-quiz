@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +39,7 @@ private val LightColorScheme = lightColorScheme(
 
 data class CustomColors(
     val textColor: Color,
+    val mainMenuButtonColor: Color,
     val secondTextColor: Color,
     val thirdTextColor: Color,
     val iconColor: Color,
@@ -45,11 +47,13 @@ data class CustomColors(
     val secondBackground: Color,
     val switchInactive: Color,
     val switchActive: Color,
-    val switchCircle: Color
+    val switchCircle: Color,
+    val logoColor: Color
 )
 
 val LightCustomColors = CustomColors(
     textColor = LT_textColor,
+    mainMenuButtonColor = LT_mainMenuButtonColor,
     secondTextColor = LT_secondTextColor,
     thirdTextColor = LT_thirdTextColor,
     iconColor = LT_iconColor,
@@ -57,11 +61,13 @@ val LightCustomColors = CustomColors(
     secondBackground = LT_secondBackground,
     switchInactive = LT_switch_inactive,
     switchActive = LT_switch_active,
-    switchCircle = LT_switch_circle
+    switchCircle = LT_switch_circle,
+    logoColor = LT_logoColor
 )
 
 val DarkCustomColors = CustomColors(
     textColor = DT_textColor,
+    mainMenuButtonColor = DT_mainMenuButtonColor,
     secondTextColor = DT_secondTextColor,
     thirdTextColor = DT_thirdTextColor,
     iconColor = DT_iconColor,
@@ -69,10 +75,11 @@ val DarkCustomColors = CustomColors(
     secondBackground = DT_secondBackground,
     switchInactive = DT_switch_inactive,
     switchActive = DT_switch_active,
-    switchCircle = DT_switch_circle
+    switchCircle = DT_switch_circle,
+    logoColor = DT_logoColor
 )
 
-val LocalCustomColors = staticCompositionLocalOf { LightCustomColors }
+val LocalCustomColors = compositionLocalOf { LightCustomColors }
 
 @Composable
 fun PupQuizTheme(

@@ -25,7 +25,7 @@ fun MainScreenButton(
             .fillMaxWidth(0.8f)
             .padding(vertical = 12.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = customColors.textColor,
+            containerColor = customColors.mainMenuButtonColor,
             contentColor = customColors.thirdTextColor
         ),
         shape = RoundedCornerShape(24.dp),
