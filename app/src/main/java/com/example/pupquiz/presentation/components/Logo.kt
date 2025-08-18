@@ -20,7 +20,7 @@ fun Logo() {
     ) {
         Text(
             text = "PUP",
-            color = customColors.thirdTextColor,
+            color = customColors.logoColor,
             fontFamily = MyCustomFont,
             fontSize = 128.sp,
             textAlign = TextAlign.Center
@@ -28,7 +28,7 @@ fun Logo() {
 
         Text(
             text = "QUIZ",
-            color = customColors.thirdTextColor,
+            color = customColors.logoColor,
             fontFamily = MyCustomFont,
             fontSize = 96.sp,
             textAlign = TextAlign.Center
