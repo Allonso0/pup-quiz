@@ -11,7 +11,6 @@ import com.example.pupquiz.data.database.dao.BreedImageDao
 import com.example.pupquiz.data.mapping.BreedImageMapper
 import com.example.pupquiz.data.mapping.BreedMapper
 import com.example.pupquiz.data.network.DogApiService
-import com.example.pupquiz.data.network.dto.BreedDTO
 import com.example.pupquiz.domain.model.Breed
 import com.example.pupquiz.domain.repository.DogRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -29,7 +28,7 @@ class DogRepositoryImpl @Inject constructor(
 ) : DogRepository {
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    private fun isOnline(): Boolean {
+    override fun isOnline(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
