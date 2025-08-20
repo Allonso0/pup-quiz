@@ -3,6 +3,8 @@ package com.example.pupquiz.di
 import android.content.Context
 import androidx.room.Room
 import com.example.pupquiz.data.database.DogDatabase
+import com.example.pupquiz.data.database.dao.BreedDao
+import com.example.pupquiz.data.database.dao.BreedImageDao
 import com.example.pupquiz.data.mapping.BreedImageMapper
 import com.example.pupquiz.data.mapping.BreedMapper
 import com.example.pupquiz.data.repository.PreferencesManager
@@ -51,5 +53,17 @@ object AppModule {
     @Singleton
     fun provideBreedImageMapper(): BreedImageMapper {
         return BreedImageMapper()
+    }
+
+    @Provides
+    @Singleton
+    fun provideBreedDao(database: DogDatabase): BreedDao {
+        return database.breedDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideBreedImageDao(database: DogDatabase): BreedImageDao {
+        return database.breedImageDao()
     }
 }

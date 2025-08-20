@@ -11,6 +11,7 @@ interface DogRepository {
     suspend fun getBreedImages(breed: String, count: Int = 5): List<String>
 
     suspend fun checkForUpdates(): Boolean
+    fun isOnline(): Boolean
 
     suspend fun saveBreedsToCache(breeds: List<Breed>)
     suspend fun loadBreedsFromCache(): List<Breed>
