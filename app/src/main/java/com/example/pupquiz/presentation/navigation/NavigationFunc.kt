@@ -39,8 +39,10 @@ fun NavigationFunc() {
                 )
             }
 
-            composable("AboutScreen") {
+            composable("AboutScreen/{breedName}") { backStackEntry ->
+                val breedName = backStackEntry.arguments?.getString("breedName")
                 AboutScreen(
+                    breedName = breedName,
                     navController = navController
                 )
             }
