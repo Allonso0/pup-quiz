@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.example.pupquiz.presentation.components.TopAppBar
-import com.example.pupquiz.presentation.screens.settings.SettingsScreen
+import com.example.pupquiz.presentation.components.TopAppBarWithNavigation
 import com.example.pupquiz.presentation.ui.theme.LocalCustomColors
 
 @Composable
@@ -21,7 +19,7 @@ fun StatisticsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            TopAppBarWithNavigation(
                 label = "Statistics",
                 onBackButtonClick = { navController.popBackStack() }
             )

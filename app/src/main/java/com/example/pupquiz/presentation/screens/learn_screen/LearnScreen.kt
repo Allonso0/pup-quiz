@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,12 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pupquiz.domain.model.Breed
 import com.example.pupquiz.presentation.components.BreedCard
 import com.example.pupquiz.presentation.components.LoadingScreen
-import com.example.pupquiz.presentation.components.TopAppBar
+import com.example.pupquiz.presentation.components.TopAppBarWithNavigation
 import com.example.pupquiz.presentation.ui.theme.LocalCustomColors
 import com.example.pupquiz.presentation.ui.theme.MyCustomFont
 
@@ -48,7 +46,7 @@ fun LearnScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            TopAppBarWithNavigation(
                 label = "Learn",
                 onBackButtonClick = { navController.popBackStack() }
             )

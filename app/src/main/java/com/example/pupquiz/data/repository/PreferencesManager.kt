@@ -2,6 +2,10 @@ package com.example.pupquiz.data.repository
 
 import android.content.Context
 import androidx.core.content.edit
+import com.example.pupquiz.domain.model.QuizQuestion
+import com.example.pupquiz.domain.model.QuizState
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
@@ -24,4 +28,66 @@ class PreferencesManager(context: Context) {
     var isSoundEnabled: Boolean
         get() = sharedPreferences.getBoolean("sound", true)
         set(value) = sharedPreferences.edit { putBoolean("sound", value) }
+
+    fun saveQuizState(
+        currentQuestion: Int,
+        score: Int,
+        timeElapsed: Int,
+        selectedAnswer: String?,
+        isAnswered: Boolean,
+        questions: List<QuizQuestion>,
+        correctAnswers: Int,
+        isGameFinished: Boolean
+    ) {
+        sharedPreferences.edit {
+            putInt("quiz_current_question", currentQuestion)
+            putInt("quiz_score", score)
+            putInt("quiz_time_elapsed", timeElapsed)
+            putString("quiz_selected_answer", selectedAnswer)
+            putBoolean("quiz_is_answered", isAnswered)
+            putInt("quiz_correct_answers", correctAnswers)
+            putBoolean("quiz_is_game_finished", isGameFinished)
+
+            val gson = Gson()
+            val questionsJson = gson.toJson(questions)
+            putString("quiz_questions", questionsJson)
+        }
+    }
+
+    fun getQuizState(): QuizState? {
+        return try {
+            val questionsJson = sharedPreferences.getString("quiz_questions", null)
+                ?: return null
+
+            val gson = Gson()
+            val type = object : TypeToken<List<QuizQuestion>>() {}.type
+            val questions = gson.fromJson<List<QuizQuestion>>(questionsJson, type)
+
+            QuizState(
+                currentQuestion = sharedPreferences.getInt("quiz_current_question", 1),
+                score = sharedPreferences.getInt("quiz_score", 0),
+                timeElapsed = sharedPreferences.getInt("quiz_time_elapsed", 0),
+                selectedAnswer = sharedPreferences.getString("quiz_selected_answer", null),
+                isAnswered = sharedPreferences.getBoolean("quiz_is_answered", false),
+                questions = questions ?: emptyList(),
+                correctAnswers = sharedPreferences.getInt("quiz_correct_answers", 0),
+                isGameFinished = sharedPreferences.getBoolean("quiz_is_game_finished", false)
+            )
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun clearQuizState() {
+        sharedPreferences.edit {
+            remove("quiz_current_question")
+            remove("quiz_score")
+            remove("quiz_time_elapsed")
+            remove("quiz_selected_answer")
+            remove("quiz_is_answered")
+            remove("quiz_questions")
+            remove("quiz_correct_answers")
+            remove("quiz_is_game_finished")
+        }
+    }
 }
