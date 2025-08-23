@@ -9,7 +9,11 @@ import com.example.pupquiz.data.mapping.BreedImageMapper
 import com.example.pupquiz.data.mapping.BreedMapper
 import com.example.pupquiz.data.repository.PreferencesManager
 import com.example.pupquiz.data.repository.SettingsRepositoryImpl
+import com.example.pupquiz.domain.repository.DogRepository
 import com.example.pupquiz.domain.repository.SettingsRepository
+import com.example.pupquiz.domain.usecase.GenerateQuiz
+import com.example.pupquiz.domain.usecase.GetAllBreeds
+import com.example.pupquiz.domain.usecase.GetRandomBreedImage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
