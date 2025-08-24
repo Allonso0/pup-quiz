@@ -59,7 +59,7 @@ fun StatisticsScreen(
                 text = "Score",
                 fontFamily = MyCustomFont,
                 fontSize = 32.sp,
-                color = customColors.thirdTextColor
+                color = customColors.secondTextColor
             )
 
             StatsCard(
@@ -76,7 +76,7 @@ fun StatisticsScreen(
                 text = "Time",
                 fontFamily = MyCustomFont,
                 fontSize = 32.sp,
-                color = customColors.thirdTextColor
+                color = customColors.secondTextColor
             )
 
             StatsCard(
