@@ -112,6 +112,9 @@ class QuizViewModel @Inject constructor(
     private fun moveToNextQuestion() {
         val state = _uiState.value
         if (state.currentQuestion >= state.totalQuestions) {
+
+            prefs.saveGameStats(state.score, state.timeElapsed)
+
             _uiState.value = state.copy(isGameFinished = true)
         } else {
             _uiState.value = state.copy(
