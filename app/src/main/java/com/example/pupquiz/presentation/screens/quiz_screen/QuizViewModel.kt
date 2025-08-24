@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pupquiz.data.repository.PreferencesManager
 import com.example.pupquiz.domain.model.QuizState
 import com.example.pupquiz.domain.usecase.GenerateQuiz
+import com.example.pupquiz.domain.usecase.PlayGameOverSound
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     private val prefs: PreferencesManager,
-    private val generateQuiz: GenerateQuiz
+    private val generateQuiz: GenerateQuiz,
+    private val playGameOverSound: PlayGameOverSound
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(loadSavedState())
@@ -112,6 +114,7 @@ class QuizViewModel @Inject constructor(
     private fun moveToNextQuestion() {
         val state = _uiState.value
         if (state.currentQuestion >= state.totalQuestions) {
+            playGameOverSound()
 
             prefs.saveGameStats(state.score, state.timeElapsed)
 

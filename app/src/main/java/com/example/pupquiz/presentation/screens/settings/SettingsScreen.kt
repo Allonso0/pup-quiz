@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -78,6 +79,44 @@ fun SettingsScreen(
                     Switch(
                         checked = isDarkThemeEnabled,
                         onCheckedChange = { viewModel.toggleDarkTheme(it) },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = customColors.switchCircle,
+                            uncheckedThumbColor = customColors.switchCircle,
+                            checkedTrackColor = customColors.switchActive,
+                            checkedBorderColor = customColors.switchActive,
+                            uncheckedTrackColor = customColors.switchInactive,
+                            uncheckedBorderColor = customColors.switchInactive
+                        )
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp)),
+                colors = CardDefaults.cardColors(
+                    containerColor = customColors.secondBackground
+                )
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Sound on/off",
+                        fontFamily = MyCustomFont,
+                        fontSize = 18.sp,
+                        color = customColors.textColor
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Switch(
+                        checked = isSoundEnabled,
+                        onCheckedChange = { viewModel.toggleSound(it) },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = customColors.switchCircle,
                             uncheckedThumbColor = customColors.switchCircle,

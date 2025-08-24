@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pupquiz.data.repository.PreferencesManager
 import com.example.pupquiz.domain.usecase.GetDarkThemeState
-import com.example.pupquiz.domain.usecase.GetSoundState
+import com.example.pupquiz.domain.usecase.PlaySwitchSound
 import com.example.pupquiz.domain.usecase.SetDarkThemeState
-import com.example.pupquiz.domain.usecase.SetSoundState
+import com.example.pupquiz.domain.usecase.SetSoundEnabled
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,9 +17,9 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor (
     private val getDarkThemeState: GetDarkThemeState,
     private val setDarkThemeState: SetDarkThemeState,
-    private val getSoundState: GetSoundState,
-    private val setSoundState: SetSoundState,
-    private val prefsManager: PreferencesManager
+    private val prefsManager: PreferencesManager,
+    private val playSwitchSound: PlaySwitchSound,
+    private val setSoundEnabled: SetSoundEnabled
 ) : ViewModel() {
 
     val isDarkThemeEnabled = prefsManager.themeUpdates
@@ -31,26 +29,24 @@ class SettingsViewModel @Inject constructor (
             initialValue = getDarkThemeState()
         )
 
-    private val _isSoundEnabled = MutableStateFlow(true)
-    val isSoundEnabled = _isSoundEnabled.asStateFlow()
-
-//    init {
-//        viewModelScope.launch {
-//            _isDarkThemeEnabled.value = getDarkThemeState()
-//            _isSoundEnabled.value = getSoundState()
-//        }
-//    }
+    val isSoundEnabled = prefsManager.soundUpdates
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = prefsManager.isSoundEnabled
+        )
 
     fun toggleDarkTheme(enabled: Boolean) {
         viewModelScope.launch {
             setDarkThemeState(enabled)
+            playSwitchSound()
         }
     }
 
     fun toggleSound(enabled: Boolean) {
-        _isSoundEnabled.value = enabled
         viewModelScope.launch {
-            setSoundState(enabled)
+            setSoundEnabled(enabled)
+            playSwitchSound()
         }
     }
 }
