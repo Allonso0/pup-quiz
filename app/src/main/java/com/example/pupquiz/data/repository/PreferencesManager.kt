@@ -26,9 +26,15 @@ class PreferencesManager(context: Context) {
             _themeUpdates.tryEmit(value)
         }
 
+    private val _soundUpdates = MutableSharedFlow<Boolean>(replay = 1)
+    val soundUpdates: SharedFlow<Boolean> = _soundUpdates
+
     var isSoundEnabled: Boolean
-        get() = sharedPreferences.getBoolean("sound", true)
-        set(value) = sharedPreferences.edit { putBoolean("sound", value) }
+        get() = sharedPreferences.getBoolean("sound_enabled", true)
+        set(value) {
+            sharedPreferences.edit { putBoolean("sound_enabled", value) }
+            _soundUpdates.tryEmit(value)
+        }
 
     fun saveQuizState(
         currentQuestion: Int,
