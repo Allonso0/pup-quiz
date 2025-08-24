@@ -2,6 +2,7 @@ package com.example.pupquiz.data.repository
 
 import android.content.Context
 import androidx.core.content.edit
+import com.example.pupquiz.domain.model.GameStatistics
 import com.example.pupquiz.domain.model.QuizQuestion
 import com.example.pupquiz.domain.model.QuizState
 import com.google.gson.Gson
@@ -88,6 +89,45 @@ class PreferencesManager(context: Context) {
             remove("quiz_questions")
             remove("quiz_correct_answers")
             remove("quiz_is_game_finished")
+        }
+    }
+
+    fun getGameStats(): GameStatistics {
+        return GameStatistics(
+            totalGames = sharedPreferences.getInt("stats_total_games", 0),
+            bestScore = sharedPreferences.getInt("stats_best_score", 0),
+            averageScore = sharedPreferences.getInt("stats_average_score", 0),
+            bestTime = sharedPreferences.getInt("stats_best_time", 0),
+            averageTime = sharedPreferences.getInt("stats_average_time", 0),
+        )
+    }
+
+    fun saveGameStats(score: Int, time: Int) {
+        val currentStats = getGameStats()
+
+        val newTotalGames = currentStats.totalGames + 1
+        val newBestScore = maxOf(currentStats.bestScore, score)
+        val newBestTime = if (currentStats.bestTime == 0) time else minOf(currentStats.bestTime, time)
+
+        val newAverageScore = ((currentStats.averageScore * currentStats.totalGames) + score) / newTotalGames
+        val newAverageTime = ((currentStats.averageTime * currentStats.totalGames) + time) / newTotalGames
+
+        sharedPreferences.edit {
+            putInt("stats_total_games", newTotalGames)
+            putInt("stats_best_score", newBestScore)
+            putInt("stats_average_score", newAverageScore)
+            putInt("stats_best_time", newBestTime)
+            putInt("stats_average_time", newAverageTime)
+        }
+    }
+
+    fun clearStats() {
+        sharedPreferences.edit {
+            remove("stats_total_games")
+            remove("stats_best_score")
+            remove("stats_average_score")
+            remove("stats_best_time")
+            remove("stats_average_time")
         }
     }
 }
