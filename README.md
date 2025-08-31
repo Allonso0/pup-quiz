@@ -17,7 +17,7 @@ PupQuiz - мобильное приложение для изучения пор
 - Асинхронность: **Kotlin Coroutines + Flow**
 - DI: **Dagger Hilt**
 - UI: **Jetpack Compose**
-- Локальное хранилище: **SharedPreferences**
+- Локальное хранилище: **Room + SharedPreferences**
 - Сетевое взаимодействие: **Retrofit + Dog CEO API**
 - Библиотеки: **Coil** (загрузка изображений), **Gson** (сериализация)
 
